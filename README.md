@@ -2,7 +2,7 @@
 
 ### Overview
 
-This script creates a United States Catholic liturgical calendar based around the date of Easter passed on execution, formatted `YYYY-DD-MM`. The calendar year is automatically taken to be `YYYY` from Easter; Advent and Christmas are automatically taken from the previous calendar year. The most common prioritization rules are implemented; however, some nuanced exceptions may not be accounted for. Adjustments to the script will be made as such nuances are discovered. The liturgical calendar is written to the current working directory as a CSV file named `YYYY-yearX-liturgical-calendar.csv`, where "YYYY" is the calendar year of Easter and "X" is the liturgical cycle ("A", "B", or "C") for the given year, unless a custom file name with directory path is pass using a `-o, --outfile` flag.
+This script creates a United States Catholic liturgical calendar based around the date of Easter passed on execution, formatted `YYYY-DD-MM`. The calendar year is automatically taken to be `YYYY` from Easter; Advent and Christmas are automatically taken from the previous calendar year. The most common prioritization rules are implemented; however, some nuanced exceptions may not yet be accounted for. Adjustments to the script will be made as such nuances are discovered. The liturgical calendar is written to the current working directory as a CSV file named `YYYY-yearX-liturgical-calendar.csv` by default, where "YYYY" is the calendar year of Easter and "X" is the liturgical cycle ("A", "B", or "C") for the given year, unless a custom file name with directory path is passed using a `-o, --outfile` flag.
 
 The CSV file contains the following columns:
 
