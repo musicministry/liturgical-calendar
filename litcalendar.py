@@ -27,6 +27,8 @@
 # Package dependencies
 
 from datetime import datetime, timedelta
+from titlecase import titlecase
+from num2words import num2words
 import pandas as pd
 import numpy as np
 import calendar
@@ -42,7 +44,7 @@ def parse_args():
         description='Function control parameters.',
         prog='liturgical-calendar',
         usage='%(prog)s [arguments]')
-    parser.add_argument('easter', metavar='easter', type=str,
+    parser.add_argument('--easter', metavar='easter', type=str,
                         help='Date of Easter formatted `YYYY-MM-DD`')
     parser.add_argument('-a', '--ascension_thursday', action='store_true',
                         help='Declare that Ascension is celebrated on Ascension Thursday rather than being transferred to the Seventh Sunday of Easter.')
@@ -189,6 +191,21 @@ def process_output(weeks, dir='infer'):
     # Sort columns
     newdf = newdf[['date', 'year', 'month', 'day', 'dayofweek', 'feast', 'filename']]
     return newdf
+
+def feast_name(feast):
+    """Derive the name of the occasion from `feast`"""
+    # Check for a numbered week and derive the name if the last two elements of
+    # `feast` are a number
+    try:
+        sea = titlecase(feast[:-2].replace('-', ' '))
+        if sea.lower() == 'ot':
+            sea = 'Ordinary Time'
+        num = feast[-2:]
+        ord = titlecase(num2words(int(num), ordinal=True))
+        return f'{ord} Sunday in {titlecase(sea)}'
+    # If `feast` is not a numbered week, convert it as-is to a name
+    except ValueError:
+        return titlecase(feast.replace('-', ' '))
 
 # Variable(s) to be keyword agruments
 # easter = '2026-04-05'
@@ -433,6 +450,20 @@ def main():
     # the feast or solemnity that falls on the same day, if applicable
     df = feasts_df.combine_first(df)
 
+    # Add liturgical season
+    df.reset_index(inplace=True)
+    df.set_index('feast', inplace=True)
+    df['season'] = 'ordinary-time'
+    df.loc['advent01':'advent04', 'season'] = 'advent'
+    df.loc['christmas-eve':'baptism', 'season'] = 'christmas'
+    df.loc['ash-wednesday':'good-friday', 'season'] = 'lent'
+    df.loc['easter-vigil':'pentecost', 'season'] = 'easter'
+    df.reset_index(inplace=True)
+    df.set_index('date', inplace=True)
+
+    # Add human-readable feast name
+    df['name'] = df['feast'].apply(feast_name)
+
     # Add day names for human readability
     df['weekday'] = df.dayofweek.map({
         0: 'Mon',
@@ -466,7 +497,7 @@ def main():
     df['priority'] = df.apply(lambda x: 2 if (x['feast'] in holy_days or x['weekday']=='Sun') else 1 if x['feast'] in important_days else 0, axis=1)
 
     # Reorder columns for convenience
-    df = df[['weekday', 'feast', 'priority', 'year', 'month', 'day', 'dayofweek', 'filename']]
+    df = df[['weekday', 'feast', 'season', 'name', 'priority', 'year', 'month', 'day', 'dayofweek', 'filename']]
 
     # Write to file
     if args.outfile is None:
