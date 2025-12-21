@@ -461,8 +461,21 @@ def main():
     df.reset_index(inplace=True)
     df.set_index('date', inplace=True)
 
-    # Add human-readable feast name
+    # Add human-readable feast name (with some manual overrides)
     df['name'] = df['feast'].apply(feast_name)
+    df['name'] = df['name'].replace('Epiphany', 'Epiphany of the Lord')
+    df['name'] = df['name'].replace('Mary Mother of God', 'Mary, Mother of God')
+    df['name'] = df['name'].replace('Baptism', 'Baptism of the Lord')
+    df['name'] = df['name'].replace('Presentation', 'Presentation of the Lord')
+    df['name'] = df['name'].replace('Stjoseph', 'Saint Joseph')
+    df['name'] = df['name'].replace('Nativity John Baptist', 'Nativity of John Baptist')
+    df['name'] = df['name'].replace('Peter Paul', 'Saints Peter and Paul')
+    df['name'] = df['name'].replace('Annunciation', 'Annunciation of the Lord')
+    df['name'] = df['name'].replace('Ascension', 'Ascension of the Lord')
+    df['name'] = df['name'].replace('Transfiguration', 'Transfiguration of the Lord')
+    df['name'] = df['name'].replace('Holy Cross', 'Exaltation of the Holy Cross')
+    df['name'] = df['name'].replace('John Lateran', 'Dedication of the Lateran Basilica')
+    df['name'] = df['name'].replace('Sacred Heart', 'Sacred Heart of Jesus')
 
     # Add day names for human readability
     df['weekday'] = df.dayofweek.map({
