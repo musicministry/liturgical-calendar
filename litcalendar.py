@@ -424,7 +424,7 @@ def main():
         # Solemnities
         [year-1, 12, 8, 'immaculate-conception', 'feasts/dec08-immaculate-conception.qmd'],
         [year, 1, 1, 'mary-mother-of-god', 'christmas/mary-mother-of-god.qmd'],
-        [year, 3, 19, 'stjoseph', 'feasts/st.joseph.qmd'],
+        [year, 3, 19, 'stjoseph', 'feasts/mar19-stjoseph.qmd'],
         [year, 3, 25, 'annunciation', 'feasts/mar25-annunciation.qmd'],
         [year, 6, 23, 'nativity-john-baptist-vigil', 'feasts/jun23-nativity-john-baptist-vigil.qmd'],
         [year, 6, 24, 'nativity-john-baptist', 'feasts/jun24-nativity-john-baptist.qmd'],
