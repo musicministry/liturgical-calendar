@@ -452,7 +452,8 @@ def main():
     df.loc['advent01':'advent04', 'season'] = 'advent'
     df.loc['christmas-eve':'baptism', 'season'] = 'christmas'
     df.loc['ash-wednesday':'good-friday', 'season'] = 'lent'
-    df.loc['easter-vigil':'pentecost', 'season'] = 'easter'
+    df.loc['palm-sunday':'easter-vigil', 'season'] = 'holy-week'
+    df.loc['easter01':'pentecost', 'season'] = 'easter'
     df.reset_index(inplace=True)
     df.set_index('date', inplace=True)
 
