@@ -301,7 +301,7 @@ def main():
     # simplicity.
     easter_weeks = next_sundays(from_date=easter, n=9, start=2, 
                                 season='easter')
-    easter_weeks.append([easter, 'easter'])
+    easter_weeks.append([easter, 'easter-sunday'])
     easter_df = process_output(easter_weeks)
     easter_df.replace({
         'easter08': 'pentecost',
@@ -314,7 +314,7 @@ def main():
     pentecost = pd.Timestamp(easter_df.loc[easter_df.feast=='pentecost'].date.values[0])
     pentecost_vigil = pentecost - timedelta(days=1)
     easter_df = pd.concat((easter_df, pd.DataFrame.from_dict({
-        'feast': ['pentecost-vigil']*2,
+        'feast': ['pentecost-vigil', 'pentecost-vigil-extended-form'],
         'date': [pentecost_vigil]*2,
         'year': [pentecost_vigil.year]*2,
         'month': [pentecost_vigil.month]*2,
@@ -468,6 +468,7 @@ def main():
     df['name'] = df['name'].replace('Baptism', 'Baptism of the Lord')
     df['name'] = df['name'].replace('Presentation', 'Presentation of the Lord')
     df['name'] = df['name'].replace('Stjoseph', 'Saint Joseph')
+    df['name'] = df['name'].replace('Nativity John Baptist Vigil', 'Nativity of John Baptist Vigil')
     df['name'] = df['name'].replace('Nativity John Baptist', 'Nativity of John Baptist')
     df['name'] = df['name'].replace('Peter Paul', 'Saints Peter and Paul')
     df['name'] = df['name'].replace('Annunciation', 'Annunciation of the Lord')
