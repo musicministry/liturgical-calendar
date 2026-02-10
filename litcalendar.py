@@ -207,11 +207,6 @@ def feast_name(feast):
     except ValueError:
         return titlecase(feast.replace('-', ' '))
 
-# Variable(s) to be keyword agruments
-# easter = '2026-04-05'
-# ascension_thursday = True
-# year = int(easter.split('-')[0])
-
 # =============================================================================
 # Main Program
 
