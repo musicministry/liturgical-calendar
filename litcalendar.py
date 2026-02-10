@@ -296,7 +296,7 @@ def main():
     # simplicity.
     easter_weeks = next_sundays(from_date=easter, n=9, start=2, 
                                 season='easter')
-    easter_weeks.append([easter, 'easter-sunday'])
+    easter_weeks.append([easter, 'easter01'])
     easter_df = process_output(easter_weeks)
     easter_df.replace({
         'easter08': 'pentecost',
