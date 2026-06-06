@@ -372,7 +372,7 @@ def main():
     num_summer_weeks = (christ_the_king - df['date']['corpus-christi']).days // 7
     ot_summer_weeks = previous_sundays(from_date=christ_the_king,
                                     n=num_summer_weeks-1, end=33, season='ot')
-    ot_summer_df = process_output(ot_summer_weeks)
+    ot_summer_df = process_output(ot_summer_weeks, dir='ordinary-time')
     df.reset_index(inplace=True)
     df = pd.concat((df, ot_winter_df, ot_summer_df), axis=0)
 
