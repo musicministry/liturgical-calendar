@@ -246,7 +246,7 @@ def main():
         christmas_weeks = [[d, f] for d, f in zip(christmas_weeks, ['holy-family', 'epiphany', 'baptism'])]
     christmas_weeks.append([christmas, 'christmas-dawn'])
     christmas_weeks.append([christmas, 'christmas-day'])
-    christmas_weeks.append([christmas-timedelta(days=1), 'christmas-eve'])
+    christmas_weeks.append([christmas-timedelta(days=1), 'christmas-vigil'])
     christmas_weeks.append([christmas-timedelta(days=1), 'christmas-midnight'])
     christmas_df = process_output(christmas_weeks, dir='christmas')
     df = pd.concat((df, christmas_df), axis=0)
@@ -450,7 +450,7 @@ def main():
     df.set_index('feast', inplace=True)
     df['season'] = 'ordinary-time'
     df.loc['advent01':'advent04', 'season'] = 'advent'
-    df.loc['christmas-eve':'baptism', 'season'] = 'christmas'
+    df.loc['christmas-vigil':'baptism', 'season'] = 'christmas'
     df.loc['ash-wednesday':'good-friday', 'season'] = 'lent'
     df.loc['palm-sunday':'easter-vigil', 'season'] = 'holy-week'
     df.loc['easter01':'pentecost', 'season'] = 'easter'
@@ -490,7 +490,7 @@ def main():
     #  -> 0 otherwise
     holy_days = [
         'immaculate-conception',
-        'christmas-eve', 'christmas-midnight', 'christmas-dawn', 'christmas-day',
+        'christmas-vigil', 'christmas-midnight', 'christmas-dawn', 'christmas-day',
         'mary-mother-of-god',
         'ascension',
         'assumption', 'assumption-vigil',
